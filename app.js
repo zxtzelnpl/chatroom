@@ -1,13 +1,17 @@
-/**
- * Created by Administrator on 2017/2/9 0009.
- */
 const port=process.env.PORT || 3000;
 
-import express from 'express';
+const path=require('path');
 
+const express = require('express') ;
 const app = express();
 
+app.set('views','./app/views/pages');
+app.set('view engine','pug');
 
-app.listen(port,()=>{
-  console.log('imooc started on port ' + port);
+require('./config/routes')(app);
+
+app.listen(port,function(){
+  console.log('Express server listening on port ' + port);
 });
+
+app.use(express.static(path.join(__dirname,'public')));
