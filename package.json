@@ -1,0 +1,21 @@
+{
+  "name": "my_first_page",
+  "version": "1.0.0",
+  "description": "the first alloverfullstack page",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "gulp",
+    "webpack",
+    "react",
+    "express",
+    "mongo"
+  ],
+  "author": "was",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
