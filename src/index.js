@@ -10,19 +10,19 @@ import Video from './components/Video';
 class Main extends React.Component{
   render(){
     return(
-      <div>
-        <Chat />
+      <div className="main">
         <Nav />
         <Video />
+        <Chat />
       </div>
       )
   }
 }
 
 class Body extends React.Component{
-  render(){
+    render(){
     return(
-      <div>
+      <div className="app">
         <Header />
         <Main />
       </div>
