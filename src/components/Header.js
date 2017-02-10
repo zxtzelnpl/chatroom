@@ -1,4 +1,5 @@
 import React from 'react';
+import SignBtn from '../containers/SignBtn'
 
 class Header extends React.Component{
   render(){
@@ -10,10 +11,7 @@ class Header extends React.Component{
         <div className="onLines">
           <span>在线人数：</span><span>0</span>
         </div>
-        <div className="user">
-          <div className="signIn"><a href="">登陆</a></div>
-          <div className="signUp"><a href="">注册</a></div>
-        </div>
+        <SignBtn />
       </div>
     )
   }

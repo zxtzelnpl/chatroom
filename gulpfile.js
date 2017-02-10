@@ -101,7 +101,11 @@ gulp.task('normalize', function () {
     .pipe(gulp.dest(paths.css));
 });
 
-
+/*
+ |--------------------------------------------------------------------------
+ | Nodemon
+ |--------------------------------------------------------------------------
+ */
 gulp.task('nodemon', function () {
   nodemon({
     script: 'app.js'
@@ -115,6 +119,11 @@ gulp.task('nodemon', function () {
   })
 });
 
+/*
+ |--------------------------------------------------------------------------
+ | Live reload
+ |--------------------------------------------------------------------------
+ */
 gulp.task('server',['nodemon'], function () {
   const files=[
     'app/views/*.pug'
@@ -151,11 +160,6 @@ gulp.task('watch', ['browserify-index','less'],function () {
 
 });
 
-
-
-
-
-
 /*
  |--------------------------------------------------------------------------
  | Default.
@@ -163,18 +167,7 @@ gulp.task('watch', ['browserify-index','less'],function () {
  */
 gulp.task('default', [
   'browserify-vendor'
-  ,'browserify-index'
-  ,'less'
   ,'normalize'
   ,'watch'
-]);
-
-
-gulp.task('start', [
-  'browserify-vendor'
-  ,'browserify-index'
-  ,'less'
-  ,'normalize'
-  ,'watch'
-  ,'connect'
+  ,'server'
 ]);

@@ -1,17 +1,11 @@
-const sign = (state, action) => {
+const sign = (state = {text:'关闭'}, action) => {
   switch (action.type) {
-    case 'SIGN_IN':
+    case 'SIGN':
       return {
         text: action.text
       };
-    case 'SIGN_UP':
-      return {
-        text: action.text
-      };
-    case 'CLOSE':
-      return {
-        text: action.text
-      }
+    default:
+      return state
   }
 };
 

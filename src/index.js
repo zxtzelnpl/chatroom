@@ -6,7 +6,8 @@ import Header from './components/Header';
 import Chat from './components/Chat';
 import Nav from './components/Nav';
 import Video from './components/Video';
-import Pop from './components/Pop';
+
+import Pop from './containers/Pop';
 
 import reducer from './reducers';
 import {Provider} from 'react-redux';
@@ -38,11 +39,15 @@ class Body extends React.Component {
   }
 }
 
-const render = ReactDOM.render(
-  <Provider store={store}>
-    <Body />
-  </Provider>, document.getElementById('app')
-);
+const render = () => {
 
+  ReactDOM.render(
+    <Provider store={store}>
+      <Body />
+    </Provider>, document.getElementById('app')
+  )
+};
+
+render();
 store.subscribe(render);
 
