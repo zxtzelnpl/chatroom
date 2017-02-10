@@ -23,7 +23,7 @@ const paths = {
   srcJs: ['src/*.js', 'src/**/*.js']
   , index: 'src/index.js'
   , js: 'public/js'
-  , less: 'src/less/*.less'
+  , less: ['src/less/*.less','src/less/**/*.less']
   , normalize: 'node_modules/normalize.css/normalize.css'
   , css: 'public/css'
 };
@@ -32,6 +32,8 @@ const dependencies = [
   'jquery'
   , 'react'
   , 'react-dom'
+  , 'redux'
+  , 'react-redux'
   , 'underscore'
 ];
 
@@ -77,7 +79,7 @@ gulp.task('browserify-index', function () {
  |--------------------------------------------------------------------------
  */
 gulp.task('less', function () {
-  return gulp.src(paths.less)
+  return gulp.src(paths.less[0])
     .pipe(sourcemaps.init())
     .pipe(less({
       'strict-math':'on'
@@ -137,7 +139,7 @@ gulp.task('server',['nodemon'], function () {
  | Watch for change.
  |--------------------------------------------------------------------------
  */
-gulp.task('watch', function () {
+gulp.task('watch', ['browserify-index','less'],function () {
 
   gulp.watch(paths.srcJs, ['browserify-index']).on('change', function (event) {
     console.log('File ' + event.path + ' was ' + event.type + ', running tasks...')
