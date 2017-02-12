@@ -4,7 +4,7 @@ import {sign} from '../actions';
 import Sign from '../components/Sign';
 
 const mapStateToProps = (state) => ({
-  text: state.sign.text
+  type: state.sign.text
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
