@@ -1,6 +1,5 @@
-import React from 'react';
 import {connect} from 'react-redux';
-import {sign} from '../actions';
+import {sign,log} from '../actions';
 import Sign from '../components/Sign';
 
 const mapStateToProps = (state) => ({
@@ -8,8 +7,11 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onClick: (text) => {
+  onSign: (text) => {
     dispatch(sign(text))
+  }
+  ,onLog:(name) =>{
+    dispatch(log(name))
   }
 });
 

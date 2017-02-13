@@ -4,3 +4,10 @@ export const sign = (text) =>{
     text
   }
 };
+
+export const log = (name) =>{
+  return{
+    type:'LOG',
+    name
+  }
+};

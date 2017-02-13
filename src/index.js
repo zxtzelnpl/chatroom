@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {createStore} from 'redux';
 
-import Header from './components/Header';
+import Header from './containers/Header';
 import Chat from './components/Chat';
 import Nav from './components/Nav';
 import Video from './components/Video';
@@ -40,13 +40,15 @@ class Body extends React.Component {
 }
 
 const render = () => {
-
+  console.log(store.getState());
   ReactDOM.render(
     <Provider store={store}>
       <Body />
     </Provider>, document.getElementById('app')
   )
 };
+
+
 
 render();
 store.subscribe(render);

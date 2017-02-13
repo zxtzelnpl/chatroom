@@ -2,13 +2,19 @@ var User = require('../models/user.js');
 
 //注册
 exports.signup = function(req,res){
-  var _user = req.body.user;
+
+  console.log(req);
+
+  var _user = req.body;
   User.findOne({name:_user.name},function(err,user){
     if(err){
       console.log(err)
     }
     if(user){
-      return res.redirect('/')
+      return res.json({
+        state:'fail'
+        ,reason:'name repeat'
+      })
     }
     else{
       user = new User(_user);
@@ -16,7 +22,11 @@ exports.signup = function(req,res){
         if(err){
           console.log(err)
         }
-        res.redirect('/')
+        res.json({
+          state:'success'
+          ,name:user.name
+          ,password:user.password
+        })
       })
     }
   });
@@ -24,7 +34,7 @@ exports.signup = function(req,res){
 
 //登陆
 exports.signin = function(req,res){
-  var _user = req.body.user;
+  var _user = req.body;
   var name = _user.name;
   var password = _user.password;
 
@@ -34,7 +44,10 @@ exports.signin = function(req,res){
     }
 
     if(!user){
-      return res.redirect('/signup')
+      return res.json({
+        state:'fail'
+        ,reason:'no name'
+      })
     }
 
     user.comparePassword(password,function(err,isMatch){
@@ -43,10 +56,17 @@ exports.signin = function(req,res){
       }
       if(isMatch){
         req.session.user = user;
-        return res.redirect('/')
+        return res.json({
+          state:'success'
+          ,name:user.name
+          ,password:user.password
+        });
       }
       else{
-        return res.redirect('/signin')
+        return res.json({
+          state:'fail'
+          ,reason:'password wrong'
+        })
       }
     })
   })
@@ -55,5 +75,7 @@ exports.signin = function(req,res){
 //登出
 exports.logout = function(req,res){
   delete req.session.user;
-  res.redirect('/')
+  res.json({
+    state:'success'
+  })
 };

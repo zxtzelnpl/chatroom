@@ -7,18 +7,30 @@ class Sign extends React.Component{
   }
 
   sign(type,name,password){
+    const me=this;
+
     $.ajax({
-      method:'POST'
+      type:'POST'
       ,url:'/'+type
       ,data:{
         name:name
         ,password:password
       }
-      ,success:() =>{
-        console.log('success')
+      ,success:(datas) =>{
+        if(datas.state === 'success'){
+
+          me.props.onLog(datas.name);
+          this.props.onSign('关闭');
+        }
+        else if (datas.state === 'fail'){
+          console.log(datas)
+        }
+        else{
+          console.log('获取数据失败，请稍后再试')
+        }
       }
-      ,fail:() =>{
-        console.log('fail')
+      ,error:() =>{
+        console.log('连接失败，请稍后再试')
       }
     })
   }
@@ -49,8 +61,8 @@ class Sign extends React.Component{
         </div>
         <div className="button">
           <a className="btn"
-             onClick = {(type,inputName,inputPassword)=>{
-               this.sign(type,inputName,inputPassword)
+             onClick = {()=>{
+               this.sign(type,inputName.value,inputPassword.value)
              }}
           >
             {this.props.type}
@@ -59,7 +71,7 @@ class Sign extends React.Component{
              onClick = {
             e => {
               e.preventDefault();
-              this.props.onClick('关闭')
+              this.props.onSign('关闭')
             }
           }>关闭</a>
         </div>
