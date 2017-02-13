@@ -26,8 +26,8 @@ mongoose.connection.on('connected', function () {
 
 app.use(session({
   secret:'junyin'
-  ,resave:false
-  ,saveUninitialized:true
+  ,resave:true
+  //,saveUninitialized:true
   ,store:new mongoStore({
     url:dbUrl
     ,collection:'session'
