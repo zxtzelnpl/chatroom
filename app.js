@@ -27,10 +27,11 @@ mongoose.connection.on('connected', function () {
 app.use(session({
   secret:'junyin'
   ,resave:true
-  //,saveUninitialized:true
+  ,saveUninitialized:true
   ,store:new mongoStore({
     url:dbUrl
     ,collection:'session'
+    ,maxAge:1000*60*10
   })
 }));
 app.use(cookieParser());
