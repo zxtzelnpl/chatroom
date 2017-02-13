@@ -95,7 +95,7 @@ a{
     width:auto;
     height:calc(~"100% -" @headerH + @gap*2);
 
-    div{
+    >div{
       height:100%;
       //导航栏样式
       &.nav{
@@ -109,9 +109,28 @@ a{
       &.video{
         flex-grow: 0.5;
 
+        display:flex;
+        flex-direction:row;
+        flex-wrap:wrap;
+        justify-content:center;
+
         min-width:600px;
         max-width:960px;
         background:lightblue;
+        .videoBox{
+          width:100%;
+
+          align-self:flex-start;
+        }
+        .Banner{
+          width:100%;
+
+          align-self:flex-end;
+          img{
+            width:100%;
+            display:block;
+          }
+        }
       }
       //聊天框样式
       &.chat{
