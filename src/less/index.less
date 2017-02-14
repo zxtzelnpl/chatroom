@@ -30,6 +30,8 @@ a{
     margin-bottom:@gap;
     width:100%;
     height:@headerH;
+    background:#000;
+    color:#fff;
     .clear;
     .title{
       float:left;
@@ -72,12 +74,18 @@ a{
           text-align: center;
           line-height:@headerH/2;
           cursor:pointer;
+          &:hover{
+            font-weight:bold;
+          }
         }
         span{
           display:block;
           width:100%;
           text-align: center;
           line-height:@headerH/2;
+          &:hover{
+            font-weight:bold;
+          }
         }
       }
     }
