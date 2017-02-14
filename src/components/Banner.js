@@ -16,6 +16,10 @@ let images = [
 ];
 
 class Banner extends React.Component {
+  constructor(props){
+    super(props)
+  }
+
   render() {
 
     let Pics=[];
