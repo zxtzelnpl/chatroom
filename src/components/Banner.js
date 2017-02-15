@@ -22,7 +22,7 @@ class Banner extends React.Component {
     super(props);
     this._imgs = [];
     this.moveX=0;
-    this.animate=0;
+    this.animate=null;
     this.state = {
       carouselWrap: {
         width: '100%'
@@ -46,7 +46,7 @@ class Banner extends React.Component {
         ,transform:'translateX(-'+this.moveX*width+'px)'
       }
     });
-    setTimeout(()=>{this.move.call(this)},2000)
+    this.animate=setTimeout(()=>{this.move.call(this)},2000)
   }
 
   componentDidMount() {
@@ -58,11 +58,15 @@ class Banner extends React.Component {
       }
     });
 
-    setTimeout(()=>{this.move.call(this)},2000)
+    this.animate=setTimeout(()=>{this.move.call(this)},2000)
   }
 
   componentDidUpdate(){
     //console.log(this._imgs)
+  }
+
+  componentWillUnmount(){
+    clearTimeout(this.animate)
   }
 
   render() {
