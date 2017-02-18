@@ -25,7 +25,7 @@ UserSchema.pre('save',function(next){
   if(user.isNew){
     user.meta.createAt = this.meta.updateAt = Date.now()
   }else{
-    this.meta.updateAt = Date.now()
+    user.meta.updateAt = Date.now()
   }
 
   bcrypt.genSalt(SALT_WORK_FACTOR,function(err,salt){
