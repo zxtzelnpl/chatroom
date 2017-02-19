@@ -40,7 +40,7 @@ class MessageBox extends React.Component{
     console.log(messagesBox);
 
     return(
-      <div>
+      <div className="messagesBox">
         {messagesBox}
       </div>
     )
