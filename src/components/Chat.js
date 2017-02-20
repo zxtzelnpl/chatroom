@@ -7,7 +7,7 @@ class Chat extends React.Component{
     return(
       <div className="chat">
         <MessageBox />
-        <Input/>
+        <Input socket={this.props.socket}/>
       </div>
     )
   }

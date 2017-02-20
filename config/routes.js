@@ -2,11 +2,14 @@ var Index = require('../app/controllers/index');
 var User = require('../app/controllers/user');
 var Message = require('../app/controllers/Message');
 
-module.exports = function(app){
+module.exports = function(app,io){
+  let user=null;
   //pre handle user
   app.use(function(req,res,next){
     var _user = req.session.user;
-    app.locals.user = _user;
+    user=app.locals.user = _user;
+
+    console.log(user);
 
     next();
   });
@@ -22,5 +25,16 @@ module.exports = function(app){
   //Message
   app.get('/sendmessage',Message.sendmessage);
   app.get('/getmessage',Message.getmessage);
+
+  //Message
+  io.on('connection',function(socket){
+    console.log('a user is in connection');
+    socket.on('chat message', function (msg) {
+      Message.save(msg,user,function(message){
+        io.emit('chat message',message);
+      });
+
+    });
+  })
 
 };

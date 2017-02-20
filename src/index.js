@@ -12,7 +12,15 @@ import Pop from './containers/Pop';
 import reducer from './reducers';
 import {Provider} from 'react-redux';
 
+import {messages} from './actions'
+
 const store = createStore(reducer);
+
+let socket=io();
+socket.on('chat message',function(msg){
+  console.log(msg);
+  store.dispatch(messages(msg));
+});
 
 
 class Main extends React.Component {
@@ -21,7 +29,7 @@ class Main extends React.Component {
       <div className="main">
         <Nav />
         <Video />
-        <Chat />
+        <Chat socket={socket}/>
       </div>
     )
   }
@@ -52,4 +60,6 @@ const render = () => {
 
 render();
 store.subscribe(render);
+
+
 

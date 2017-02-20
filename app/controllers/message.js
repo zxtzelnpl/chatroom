@@ -30,3 +30,17 @@ exports.sendmessage=function(req,res){
     })
   })
 };
+
+exports.save=function(msg,user,next){
+  var _message={};
+  _message.from=user._id;
+  _message.content=msg;
+
+  var message=new Message(_message);
+  message.save(function(err,message){
+    if(err){
+      console.log(err);
+    }
+    next(message);
+  })
+};
