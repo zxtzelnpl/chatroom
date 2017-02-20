@@ -1,6 +1,8 @@
 var port=process.env.PORT || 3000;
 var dbUrl='mongodb://localhost/junyin';
 
+
+
 var path=require('path');
 
 var mongoose = require('mongoose');
@@ -14,6 +16,8 @@ var bodyParser = require('body-parser');
 var routes=require('./config/routes');
 
 var app = express();
+var http=require('http').Server(app);
+var io = require('socket.io')(http);
 
 app.set('views','./app/views/pages');
 app.set('view engine','pug');
@@ -42,7 +46,19 @@ app.use(express.static(path.join(__dirname,'public')));
 
 routes(app);
 
-app.listen(port,function(){
+io.on('connection',function(socket){
+  console.log('a user connected');
+  socket.on('disconnect', function () {
+    console.log('user disconnected');
+  });
+
+  socket.on('chat message', function (msg) {
+    console.log(msg);
+    //io.emit('chat message',msg);
+  });
+});
+
+http.listen(port,function(){
   console.log('Express server listening on port ' + port);
 });
 
