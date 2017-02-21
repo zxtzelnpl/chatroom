@@ -1,11 +1,12 @@
 import React from 'react';
+import socket from '../socket/socket';
 
 class Input extends React.Component {
 
   handleClick(e) {
     let content = this.textarea.value;
     e.preventDefault();
-    this.props.socket.emit('chat message',content);
+    socket.emit('chat message',content);
   }
 
   render() {

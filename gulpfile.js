@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 
 const concat = require('gulp-concat');
+const plumber=require('gulp-plumber');
 const less = require('gulp-less');
 const cssmin = require('gulp-cssmin');
 const autoprefixer = require('gulp-autoprefixer');
@@ -80,6 +81,7 @@ gulp.task('browserify-index', function () {
  */
 gulp.task('less', function () {
   return gulp.src(paths.less[0])
+    .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(less({
       'strict-math':'on'
