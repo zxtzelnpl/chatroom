@@ -27,17 +27,11 @@ class MessageBox extends React.Component{
     })
   }
   render(){
-    console.log(this.props.messages);
-
     let messages=this.props.messages;
-
-    console.log(messages);
 
     let messagesBox=messages.map((message,index)=>(
       <Message key={message.content+index} message={message} />
     ));
-
-    console.log(messagesBox);
 
     return(
       <div className="messagesBox">

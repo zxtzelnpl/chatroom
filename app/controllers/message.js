@@ -16,7 +16,6 @@ exports.getmessage = function(req,res){
 exports.sendmessage=function(req,res){
   var _message=req.query;
 
-  console.log(_message);
 
   _message.from=req.session.user._id;
 

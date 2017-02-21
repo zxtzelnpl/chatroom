@@ -12,7 +12,7 @@ import Pop from './containers/Pop';
 import reducer from './reducers';
 import {Provider} from 'react-redux';
 
-import {messages} from './actions';
+import {messages,onlines} from './actions';
 
 import socket from './socket/socket';
 
@@ -21,6 +21,10 @@ const store = createStore(reducer);
 socket.on('chat message',function(msg){
   console.log(msg);
   store.dispatch(messages(msg));
+});
+
+socket.on('online',function(msg){
+  store.dispatch(onlines(msg))
 });
 
 

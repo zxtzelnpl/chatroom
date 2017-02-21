@@ -4,12 +4,11 @@ var Message = require('../app/controllers/Message');
 
 module.exports = function(app,io){
   let user=null;
+  let userNum=0;
   //pre handle user
   app.use(function(req,res,next){
-    var _user = req.session.user;
+    let _user = req.session.user;
     user=app.locals.user = _user;
-
-    console.log(user);
 
     next();
   });
@@ -28,13 +27,20 @@ module.exports = function(app,io){
 
   //Message
   io.on('connection',function(socket){
-    console.log('a user is in connection');
+    userNum++;
+    io.emit('online',userNum);
+    console.log(userNum+'user is in connection');
+
     socket.on('chat message', function (msg) {
       Message.save(msg,user,function(message){
         io.emit('chat message',message);
       });
-
     });
+
+    socket.on('disconnect',function(){
+      userNum--;
+      io.emit('online',userNum);
+    })
   })
 
 };

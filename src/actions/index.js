@@ -8,12 +8,12 @@ export const log = (name) =>({
     name
 });
 
-export const message = (message) => ({
-  type:'MES',
-  message
-});
-
 export const messages = (messages) => ({
   type:'MESS',
   messages
+});
+
+export const onlines = (number) =>({
+  type:'ONLINE'
+  ,number
 });
