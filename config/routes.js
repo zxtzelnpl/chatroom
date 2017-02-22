@@ -1,6 +1,6 @@
 var Index = require('../app/controllers/index');
 var User = require('../app/controllers/user');
-var Message = require('../app/controllers/Message');
+var Message = require('../app/controllers/message');
 
 module.exports = function(app,io){
   let user=null;
