@@ -3,8 +3,6 @@ var User = require('../models/user.js');
 //注册
 exports.signup = function(req,res){
 
-  console.log(req);
-
   var _user = req.body;
   User.findOne({name:_user.name},function(err,user){
     if(err){
