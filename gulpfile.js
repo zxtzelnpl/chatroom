@@ -38,8 +38,6 @@ const dependencies = [
   , 'underscore'
 ];
 
-
-
 /*
  |--------------------------------------------------------------------------
  | Compile third-party dependencies separately for faster performance.
@@ -172,4 +170,17 @@ gulp.task('default', [
   ,'normalize'
   ,'watch'
   ,'server'
+]);
+
+/*
+ |--------------------------------------------------------------------------
+ | Produce.
+ |--------------------------------------------------------------------------
+ */
+gulp.task('produce', [
+  'browserify-vendor'
+  ,'browserify-index'
+  ,'normalize'
+  ,'less'
+  ,'nodemon'
 ]);
