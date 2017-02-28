@@ -1,45 +1,77 @@
-var Message=require('../models/message');
-var User=require('../models/user');
+var Message = require('../models/message');
+var User = require('../models/user');
 
-exports.getmessage = function(req,res){
+exports.getmessage = function (req, res) {
   Message
     .find({})
-    .populate('from','name')
-    .exec(function(err,messages){
-      if(err){
+    .populate('from', 'name')
+    .exec(function (err, messages) {
+      if (err) {
         console.log(err)
       }
       res.json(messages);
     })
 };
 
-exports.sendmessage=function(req,res){
-  var _message=req.query;
+exports.sendmessage = function (req, res) {
+  var _message = req.query;
 
 
-  _message.from=req.session.user._id;
+  _message.from = req.session.user._id;
 
-  var message=new Message(_message);
-  message.save(function(err,message){
-    if(err){
+  var message = new Message(_message);
+  message.save(function (err, message) {
+    if (err) {
       console.log(err)
     }
     res.json({
-      state:'success'
+      state: 'success'
     })
   })
 };
 
-exports.save=function(msg,user,next){
-  var _message={};
-  _message.from=user._id;
-  _message.content=msg;
+exports.save = function (msg, next) {
 
-  var message=new Message(_message);
-  message.save(function(err,message){
-    if(err){
-      console.log(err);
+  User.findOne({name: msg.name}, function (err, user) {
+    var _message = {
+      from: {}
+    };
+    if (err) {
+      console.log(err)
     }
-    next(message);
-  })
+
+    _message.from = user._id;
+    _message.content = msg.content;
+
+    var message = new Message(_message);
+    message.save(function (err, message) {
+      if (err) {
+        console.log(err);
+      }
+      var _id=message._id;
+      Message
+        .findOne({_id:_id})
+        .populate('from', 'name')
+        .exec(function (err, messages) {
+          if (err) {
+            console.log(err)
+          }
+          next(messages);
+        })
+    })
+  });
+
+  // var _message={
+  //   from:{}
+  // };
+  // _message.from.name=msg.name;
+  // _message.content=msg.content;
+  //
+  // var message=new Message(_message);
+  // message.save(function(err,message){
+  //   if(err){
+  //     console.log(err);
+  //   }
+  //   next(message);
+  // })
 };

@@ -20,6 +20,9 @@ exports.signup = function(req,res){
         if(err){
           console.log(err)
         }
+
+        req.session.user = user;
+
         res.json({
           state:'success'
           ,name:user.name
