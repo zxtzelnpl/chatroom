@@ -5,7 +5,7 @@ function Message ({message}) {
     return(
       <div>
         <div className="name">{message.from.name}</div>
-        <div className="time">{new Date(message.meta.createAt).toLocaleTimeString()}:</div>
+        <div className="time">{new Date(message.meta.createAt).toLocaleString()}:</div>
         <div className="content">{message.content}</div>
       </div>
     )
