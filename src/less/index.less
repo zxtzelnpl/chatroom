@@ -167,8 +167,29 @@ a{
         background: palevioletred;
 
         .messagesBox{
+          box-sizing: border-box;
+          padding:10px;
           height:~"calc(100% - 200px)";
-          overflow-y: auto;
+          overflow: hidden;
+          .message{
+            padding-bottom:10px;
+            .name{
+              float:left;
+              font-weight: bold;
+            }
+            .time{
+              float:right;
+              font-style:italic;
+              color:#c0c0c0;
+              font-size:12px;
+            }
+            .content{
+              padding:5px;
+              clear:both;
+              border-radius:5px;
+              background:#fff;
+            }
+          }
         }
 
         .chatInputBox{
