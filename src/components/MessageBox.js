@@ -39,9 +39,8 @@ class MessageBox extends React.Component {
 
     let innerH=this.messages.scrollHeight;
     let outerH=this.messagesBox.clientHeight;
-    let padding=parseInt(getComputedStyle(this.messagesBox)['paddingBottom']);
-    console.log(innerH,outerH,padding);
-    let canMove=innerH+padding-outerH;
+    console.log(innerH,outerH);
+    let canMove=innerH-outerH;
     if(!this.myScroll){
       this.canMove=canMove;
       this.myScroll = new IScroll('.messagesBox', {
