@@ -1,7 +1,7 @@
 const gulp = require('gulp');
 
 const concat = require('gulp-concat');
-const plumber=require('gulp-plumber');
+const plumber = require('gulp-plumber');
 const less = require('gulp-less');
 const cssmin = require('gulp-cssmin');
 const autoprefixer = require('gulp-autoprefixer');
@@ -24,7 +24,7 @@ const paths = {
   srcJs: ['src/*.js', 'src/**/*.js']
   , index: 'src/index.js'
   , js: 'public/js'
-  , less: ['src/less/*.less','src/less/**/*.less']
+  , less: ['src/less/*.less', 'src/less/**/*.less']
   , normalize: 'node_modules/normalize.css/normalize.css'
   , css: 'public/css'
 };
@@ -36,6 +36,7 @@ const dependencies = [
   , 'redux'
   , 'react-redux'
   , 'underscore'
+  , 'iscroll'
 ];
 
 /*
@@ -82,7 +83,7 @@ gulp.task('less', function () {
     .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(less({
-      'strict-math':'on'
+      'strict-math': 'on'
     }))
     .pipe(autoprefixer())
     .pipe(gulpif(production, cssmin()))
@@ -110,10 +111,10 @@ gulp.task('nodemon', function () {
   nodemon({
     script: 'app.js'
     , ext: 'js'
-    , ignore :[
+    , ignore: [
       'public/'
-      ,'src/'
-      ,'node_modules/'
+      , 'src/'
+      , 'node_modules/'
     ]
     , env: {'NODE_ENV': 'development'}
   })
@@ -124,21 +125,21 @@ gulp.task('nodemon', function () {
  | Live reload
  |--------------------------------------------------------------------------
  */
-gulp.task('server',['nodemon'], function () {
-  const files=[
+gulp.task('server', ['nodemon'], function () {
+  const files = [
     'app/views/*.pug'
-    ,'app/views/**/*.pug'
-    ,'public/*.*'
-    ,'public/**/*.*'
+    , 'app/views/**/*.pug'
+    , 'public/*.*'
+    , 'public/**/*.*'
   ];
-  browserSync.init(files,{
+  browserSync.init(files, {
     proxy: 'http://localhost:3000',
     browser: 'chrome',
     notify: false,
-    port:3001
+    port: 3001
   });
 
-  gulp.watch(files).on("change",reload)
+  gulp.watch(files).on("change", reload)
 
 });
 
@@ -148,7 +149,7 @@ gulp.task('server',['nodemon'], function () {
  | Watch for change.
  |--------------------------------------------------------------------------
  */
-gulp.task('watch', ['browserify-index','less'],function () {
+gulp.task('watch', ['browserify-index', 'less'], function () {
 
   gulp.watch(paths.srcJs, ['browserify-index']).on('change', function (event) {
     console.log('File ' + event.path + ' was ' + event.type + ', running tasks...')
@@ -167,9 +168,9 @@ gulp.task('watch', ['browserify-index','less'],function () {
  */
 gulp.task('default', [
   'browserify-vendor'
-  ,'normalize'
-  ,'watch'
-  ,'server'
+  , 'normalize'
+  , 'watch'
+  , 'server'
 ]);
 
 /*
@@ -179,8 +180,8 @@ gulp.task('default', [
  */
 gulp.task('produce', [
   'browserify-vendor'
-  ,'browserify-index'
-  ,'normalize'
-  ,'less'
-  ,'nodemon'
+  , 'browserify-index'
+  , 'normalize'
+  , 'less'
+  , 'nodemon'
 ]);
