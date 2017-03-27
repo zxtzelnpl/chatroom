@@ -168,10 +168,11 @@ a{
 
         .messagesBox{
           box-sizing: border-box;
-          padding:10px;
+          padding:16px;
           height:~"calc(100% - 200px)";
           cursor:pointer;
           overflow: hidden;
+          position: relative;
           .message{
             padding-bottom:10px;
             >div{
@@ -283,3 +284,49 @@ a{
     }
   }
 }
+
+
+/*自定义滚动条样式*/
+//.iScrollHorizontalScrollbar {
+//  position: absolute;
+//  z-index: 9999;
+//  height: 16px;
+//  left: 2px;
+//  right: 2px;
+//  bottom: 2px;
+//  overflow: hidden;
+//  .iScrollBothScrollbars{
+//    right: 18px;
+//  }
+//  .iScrollIndicator {
+//    height: 100%;
+//    background: linear-gradient(to right,  #cc3f6e 0%,#93004e 100%);
+//  }
+//}
+//
+//
+//.iScrollVerticalScrollbar {
+//  position: absolute;
+//  z-index: 9999;
+//  width: 16px;
+//  bottom: 2px;
+//  top: 2px;
+//  right: 2px;
+//  overflow: hidden;
+//  .iScrollBothScrollbars{
+//    bottom: 18px;
+//  }
+//  .iScrollIndicator {
+//    width: 100%;
+//    background: linear-gradient(to bottom,  #cc3f6e 0%,#93004e 100%);
+//  }
+//}
+//
+//.iScrollIndicator {
+//  position: absolute;
+//  background: #cc3f6e;
+//  border-width: 1px;
+//  border-style: solid;
+//  border-color: #EB97B4 #7C2845 #7C2845 #EB97B4;
+//  border-radius: 8px;
+//}
