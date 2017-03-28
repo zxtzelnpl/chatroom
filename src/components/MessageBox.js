@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
+import IScroll from 'iscroll';
 
 function Message({message}) {
   return (
@@ -14,60 +15,7 @@ function Message({message}) {
 class MessageBox extends React.Component {
   constructor(props) {
     super(props);
-    this.mouse = {
-      outerH: 0
-      , innerH: 0
-      , canH: 0
-      , moveH: 0
-      , startH: 0
-      , endH: 0
-      , startT: 0
-      , endT: 0
-      , modification: 0
-    };
-    this.scrollTop = 0;
-    this.state = {
-      transform: 'translateY(0px)'
-      , transition: ''
-    }
-  }
-
-  handleMouseDown(e) {
-    this.mouse.state = 'on';
-    this.mouse.startH = e.clientY;
-    this.mouse.startT = new Date();
-  }
-
-  handleMouseMove(e) {
-    let transform;
-    if (this.mouse.state === 'on' && this.mouse.canH > 0) {
-      this.mouse.moveH = e.clientY - this.mouse.startH;
-      transform = 'translateY(' + (this.scrollTop + this.mouse.moveH) + 'px)';
-      this.setState({
-        transform: transform
-        , transition: ''
-      })
-    }
-  }
-
-  handleMouseUp() {
-    let transform;
-    this.scrollTop += this.mouse.moveH;
-    this.mouse.endT = new Date();
-    if (this.scrollTop > 0) {
-      this.scrollTop = 0;
-      this.setState({
-        transform: 'translateY(0px)'
-        , transition: 'transform .5s ease'
-      });
-    } else if (this.scrollTop + this.mouse.canH < 0) {
-      this.scrollTop = -this.mouse.canH;
-      this.setState({
-        transform: 'translateY(' + this.scrollTop + 'px)'
-        , transition: 'transform .5s ease'
-      });
-    }
-    this.mouse.state = 'off';
+    this.canMove=0;
   }
 
   componentDidMount() {
@@ -77,7 +25,7 @@ class MessageBox extends React.Component {
       type: 'GET'
       , url: '/getmessage'
       , success: (messages) => {
-        me.props.getAll(messages)
+        me.props.getAll(messages);
       }
       , error: () => {
         console.log('连接失败，请稍后再试')
@@ -87,18 +35,27 @@ class MessageBox extends React.Component {
 
   componentDidUpdate() {
     console.log('componentDidUpdate');
-    let nowH,paddingBottom;
-    this.mouse.outerH = this.messagesBox.clientHeight;
-    this.mouse.innerH = this.messages.scrollHeight;
-    paddingBottom=parseInt(getComputedStyle(this.messagesBox)['paddingBottom']);
-    nowH=this.mouse.innerH - this.mouse.outerH +paddingBottom > 0 ? (this.mouse.innerH - this.mouse.outerH +paddingBottom) : 0;
-    if(this.mouse.canH!==nowH){
-      this.mouse.canH=nowH;
-      this.scrollTop = -this.mouse.canH;
-      this.setState({
-        transform: 'translateY(' + this.scrollTop + 'px)'
-        , transition: 'transform .5s ease'
+
+
+    let innerH=this.messages.scrollHeight;
+    let outerH=this.messagesBox.clientHeight;
+    console.log(innerH,outerH);
+    let canMove=innerH-outerH;
+    if(!this.myScroll){
+      this.canMove=canMove;
+      this.myScroll = new IScroll('.messagesBox', {
+        mouseWheel: true
+        ,scrollbars: true
+        ,interactiveScrollbars:true
+       , startY:-this.canMove
+        ,resizeScrollbars:true
       });
+    }else{
+      if(canMove!==this.canMove){
+        this.canMove=canMove;
+        this.myScroll.refresh();
+        this.myScroll.scrollTo(0,-this.canMove,500,IScroll.utils.ease.ease);
+      }
     }
   }
 
@@ -112,9 +69,6 @@ class MessageBox extends React.Component {
     return (
       <div
         className="messagesBox"
-        onMouseDown={this.handleMouseDown.bind(this)}
-        onMouseMove={this.handleMouseMove.bind(this)}
-        onMouseUp={this.handleMouseUp.bind(this)}
         ref={(box) => {
           this.messagesBox = box
         }}
