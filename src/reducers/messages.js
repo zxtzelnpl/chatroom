@@ -1,4 +1,5 @@
-const messages = (state = [],action)=>{
+let initialState= JSON.parse(document.getElementById('INITIAL_STATE_MES').value);
+const messages = (state = initialState,action)=>{
   switch (action.type){
     case 'MESS':
       return state.concat(action.messages);

@@ -40,5 +40,4 @@ module.exports = function(app,io){
       io.emit('online',userNum);
     })
   })
-
 };

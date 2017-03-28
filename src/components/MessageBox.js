@@ -20,17 +20,33 @@ class MessageBox extends React.Component {
 
   componentDidMount() {
     console.log('componentDidMount');
-    let me = this;
-    $.ajax({
-      type: 'GET'
-      , url: '/getmessage'
-      , success: (messages) => {
-        me.props.getAll(messages);
-      }
-      , error: () => {
-        console.log('连接失败，请稍后再试')
-      }
-    })
+    // let me = this;
+    // $.ajax({
+    //   type: 'GET'
+    //   , url: '/getmessage'
+    //   , success: (messages) => {
+    //     me.props.getAll(messages);
+    //   }
+    //   , error: () => {
+    //     console.log('连接失败，请稍后再试')
+    //   }
+    // })
+    let innerH=this.messages.scrollHeight;
+    let outerH=this.messagesBox.clientHeight;
+    console.log(innerH,outerH);
+    let canMove=innerH-outerH;
+    console.log(canMove);
+    if(canMove<0){
+      return;
+    }
+    this.canMove=canMove;
+    this.myScroll = new IScroll('.messagesBox', {
+      mouseWheel: true
+      ,scrollbars: true
+      ,interactiveScrollbars:true
+      , startY:-this.canMove
+      ,resizeScrollbars:true
+    });
   }
 
   componentDidUpdate() {
@@ -41,6 +57,10 @@ class MessageBox extends React.Component {
     let outerH=this.messagesBox.clientHeight;
     console.log(innerH,outerH);
     let canMove=innerH-outerH;
+    console.log(canMove);
+    if(canMove<0){
+      return;
+    }
     if(!this.myScroll){
       this.canMove=canMove;
       this.myScroll = new IScroll('.messagesBox', {
