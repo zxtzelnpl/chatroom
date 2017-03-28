@@ -8,6 +8,18 @@ var UserSchema = new mongoose.Schema({
     ,type:String
   }
   ,password:String
+  ,level:{
+    type:Number
+    ,default:0
+  }
+  ,phone:{
+    unique:true
+    ,type:String
+  }
+  ,email:{
+    unique:true
+    ,type:String
+  }
   ,meta:{
     createAt:{
       type:Date

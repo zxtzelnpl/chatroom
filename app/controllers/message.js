@@ -2,10 +2,16 @@ var Message = require('../models/message');
 var User = require('../models/user');
 
 exports.getmessage = function (req, res) {
+  let page=req.query.page;
+  let nums=30;
   Message
     .find({})
+    .sort({_id:-1})
+    .skip(page*nums)
+    .limit(nums)
     .populate('from', 'name')
     .exec(function (err, messages) {
+      console.log(messages);
       if (err) {
         console.log(err)
       }

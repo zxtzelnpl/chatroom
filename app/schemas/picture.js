@@ -4,29 +4,34 @@ mongoose.Promise = global.Promise;
 var Schema=mongoose.Schema;
 var ObjectId=Schema.Types.ObjectId;
 
-var MessageSchema = new Schema({
+var PictureSchema = new Schema({
   from:{
     type:ObjectId
     ,ref:'User'
   }
-  ,content:String
+  ,src:String
+  ,url:String
+  ,alt:{
+    type:String
+    ,default:'图片'
+  }
   ,meta:{
     createAt:{
       type:Date
-      ,default:Date.now
+      ,default:Date.now()
     }
-    ,time:{
-      type:Number
-      ,default:Date.now
+    ,updateAt:{
+      type:Date
+      ,default:Date.now()
     }
   }
 });
 
-MessageSchema.statics={
+PictureSchema.statics={
   fetch:function(cb){
     return this
       .find({})
-      .sort('meta.time')
+      .sort('meta.updateAt')
       .exec(cb);
   },
   findById:function(id,cb){
@@ -36,4 +41,4 @@ MessageSchema.statics={
   }
 };
 
-module.exports = MessageSchema;
+module.exports = PictureSchema;
